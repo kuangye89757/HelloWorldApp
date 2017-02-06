@@ -1,3 +1,6 @@
+以下实例和整理转自官方文档:http://reactnative.cn/docs/0.41/getting-started.html
+在此致敬
+
 栗子:
     export default class HelloWorldApp extends Component {
       render() {
@@ -73,5 +76,55 @@ TextInput(见组件PizzaTranslator)
     属性onSubmitEditing   --会在文本被提交后（用户按下软键盘上的提交键）调用
 
 =====================================================================================
-ScrollView
-    一个通用的可滚动的容器，你可以在其中放入多个组件和视
+一、静态图片资源
+    React Native提供了一个统一的方式来管理iOS和Android应用中的图片
+    图片文件的查找会和JS模块的查找方式一样
+
+    Packager就会去这个组件所在的文件夹下查找my-icon.png。
+    并且my-icon.ios.png和my-icon.android.png,Packager会根据平台而选择不同的文件
+
+    .
+    ├── button.js
+    └── img
+        ├── check@2x.png
+        └── check@3x.png
+
+   button.js里有这样的代码--require中的图片名字必须是一个静态字符串不能使用引用
+        <Image source={require('./img/check.png')} />
+
+        // 错误
+        var icon = this.props.active ? 'my-icon-active' : 'my-icon-inactive';
+        <Image source={require('./' + icon + '.png')} />
+
+        // 正确
+        var icon = this.props.active ? require('./my-icon-active.png') : require('./my-icon-inactive.png');
+        <Image source={icon} />
+
+   一些好处:
+
+       iOS和Android一致的文件系统。
+       图片和JS代码处在相同的文件夹，这样组件就可以包含自己所用的图片而不用单独去设置。
+       不需要全局命名。你不用再担心图片名字的冲突问题了。
+       只有实际被用到（即被require）的图片才会被打包到你的app。
+       现在在开发期间，增加和修改图片不需要重新编译了，只要和修改js代码一样刷新你的模拟器就可以了。
+       与访问网络图片相比，Packager可以得知图片大小了，不需要在代码里再声明一遍尺寸。
+       现在通过npm来分发组件或库可以包含图片了。
+
+
+二、使用混合App的图片资源
+   如果你在编写一个混合App（一部分UI使用React Native，而另一部分使用平台原生代码），也可以使用已经打包到App中的图片资源（通过Xcode的asset类目或者Android的drawable文件夹打包）：
+
+   <Image source={{uri: 'app_icon'}} style={{width: 40, height: 40}} />
+   注意：这一做法并没有任何安全检查。你需要自己确保图片在应用中确实存在，而且还需要指定尺寸。
+
+三、网络图片(需要手动指定图片的尺寸)
+    // 正确
+    <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}}
+           style={{width: 400, height: 400}} />
+
+    // 错误
+    <Image source={{uri: 'https://facebook.github.io/react/img/logo_og.png'}} />
+
+=====================================================================================
+ScrollView(见IScrolledDownAndWhatHappenedNextShockedMe)
+    一个通用的可滚动的容器，你可以在其中放入多个组件和视图

@@ -9,7 +9,7 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View, Image,TextInput
+    View, Image,TextInput,ScrollView
 } from 'react-native';
 
 /**默认输出的组件*/
@@ -159,7 +159,55 @@ class PizzaTranslator extends Component {
     }
 }
 
+
+/**ScrollView加载图片*/
+class IScrolledDownAndWhatHappenedNextShockedMe extends Component{
+    render(){
+        return(
+            <ScrollView>
+                <Text style={{fontSize:56}}>Scroll me plz</Text>
+                <Image source={require('./img/14-1612220U926.jpg')} style={{width: 40, height: 40}} />
+                <Image source={require('./img/238584035766929246.jpg')} style={{width: 40, height: 40}}/>
+                <Image source={require('./img/14-1612220U926.jpg')} style={{width: 40, height: 40}}/>
+                <Image source={require('./img/238584035766929246.jpg')} style={{width: 40, height: 40}}/>
+                <Image source={require('./img/14-1612220U926.jpg')} style={{width: 40, height: 40}}/>
+
+                <Text style={{fontSize:56}}>If you like</Text>
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+
+                <Text style={{fontSize:56}}>Scrolling down</Text>
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+
+                <Text style={{fontSize:96}}>Framework around</Text>
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+
+                <Text style={{fontSize:96}}>Whats the best</Text>
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/238584035766929246.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Text style={{fontSize:80}}>React Native</Text>
+
+            </ScrollView>
+        );
+    }
+}
+
 // 注意，这里用引号括起来的'HelloWorldApp'必须和你init创建的项目名一致
 // AppRegistry.registerComponent('HelloWorldApp', () => HelloWorldApp);
 // AppRegistry.registerComponent('HelloWorldApp', () => FixedDimensionsBasics);
-AppRegistry.registerComponent('HelloWorldApp', () => PizzaTranslator);
+// AppRegistry.registerComponent('HelloWorldApp', () => PizzaTranslator);
+AppRegistry.registerComponent('HelloWorldApp', () => IScrolledDownAndWhatHappenedNextShockedMe);
