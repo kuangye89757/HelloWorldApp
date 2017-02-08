@@ -9,8 +9,14 @@ import {
     AppRegistry,
     StyleSheet,
     Text,
-    View, Image,TextInput,ScrollView
+    View, Image, TextInput, ScrollView, ListView,Navigator
 } from 'react-native';
+
+// ./MyScene表示的是当前目录下的MyScene.js文件，也就是我们刚刚创建的文件
+// 注意即便当前文件和MyScene.js在同一个目录中，"./"两个符号也是不能省略的！
+// 但是.js后缀是可以省略的
+import MyScene from './MyScene';
+
 
 /**默认输出的组件*/
 export default class HelloWorldApp extends Component {
@@ -23,6 +29,7 @@ export default class HelloWorldApp extends Component {
                 <Blink text='Yes blinking is so great'/>
                 <Blink text='Why did they ever take this out of HTML'/>
                 <Blink text='Look at me look at me look at me'/>
+                <MyScene />
             </View>
         );
     }
@@ -161,44 +168,49 @@ class PizzaTranslator extends Component {
 
 
 /**ScrollView加载图片*/
-class IScrolledDownAndWhatHappenedNextShockedMe extends Component{
-    render(){
-        return(
+class IScrolledDownAndWhatHappenedNextShockedMe extends Component {
+    render() {
+        return (
             <ScrollView>
                 <Text style={{fontSize:56}}>Scroll me plz</Text>
-                <Image source={require('./img/14-1612220U926.jpg')} style={{width: 40, height: 40}} />
-                <Image source={require('./img/238584035766929246.jpg')} style={{width: 40, height: 40}}/>
-                <Image source={require('./img/14-1612220U926.jpg')} style={{width: 40, height: 40}}/>
-                <Image source={require('./img/238584035766929246.jpg')} style={{width: 40, height: 40}}/>
-                <Image source={require('./img/14-1612220U926.jpg')} style={{width: 40, height: 40}}/>
+                <Image source={require('./img/14-1612220U926.jpg')}
+                       style={{width: 40, height: 40}}/>
+                <Image source={require('./img/238584035766929246.jpg')}
+                       style={{width: 40, height: 40}}/>
+                <Image source={require('./img/14-1612220U926.jpg')}
+                       style={{width: 40, height: 40}}/>
+                <Image source={require('./img/238584035766929246.jpg')}
+                       style={{width: 40, height: 40}}/>
+                <Image source={require('./img/14-1612220U926.jpg')}
+                       style={{width: 40, height: 40}}/>
 
                 <Text style={{fontSize:56}}>If you like</Text>
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
 
                 <Text style={{fontSize:56}}>Scrolling down</Text>
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
 
                 <Text style={{fontSize:96}}>Framework around</Text>
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
 
                 <Text style={{fontSize:96}}>Whats the best</Text>
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
-                <Image source={require('./img/238584035766929246.jpg')} />
-                <Image source={require('./img/14-1612220U926.jpg')} />
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
+                <Image source={require('./img/238584035766929246.jpg')}/>
+                <Image source={require('./img/14-1612220U926.jpg')}/>
                 <Text style={{fontSize:80}}>React Native</Text>
 
             </ScrollView>
@@ -206,8 +218,71 @@ class IScrolledDownAndWhatHappenedNextShockedMe extends Component{
     }
 }
 
+
+class ListViewBasics extends Component {
+    constructor(props) {
+        super(props);
+        const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+        this.state = {
+            dataSource: ds.cloneWithRows([
+                'John', 'Joel', 'James', 'Jimmy', 'Jackson', 'Jillian', 'Julie', 'Devin'
+            ])
+        };
+    }
+
+    render() {
+        return (
+            <View style={{flex:1,padding:22}}>
+                <ListView
+                    dataSource={this.state.dataSource}
+                    renderRow={(rowData) => <Text>{rowData}</Text>}
+                />
+            </View>
+        );
+    }
+}
+
+/**渲染一个Navigator组件，然后通过此组件的renderScene属性方法来渲染其他场景*/
+/**路由(route)的概念
+ *      renderScene方法是完全根据路由提供的信息来渲染场景的
+ *      在路由中任意自定义参数以区分标记不同的场景
+ * */
+class SimpleNavigation extends Component {
+    render() {
+        return (
+            <Navigator
+                initialRoute={{title:'My Initial Scene',index:0}}
+                renderScene={(route,navigator) =>
+                    <MyScene
+                        /**MyScene通过title属性接受了路由对象中的title值*/
+                        title={route.title}
+
+                        /**新场景显示时回调*/
+                        onForward={()=>{
+                          const nextIndex = route.index + 1;
+                          navigator.push({
+                              title:'Scene' + nextIndex,
+                              index:nextIndex
+                          });
+                        }}
+
+                        /**跳转到前一个场景回调*/
+                        onBack={()=>{
+                            if(route.index > 0){
+                                navigator.pop();
+                            }
+                        }}
+                    />
+                }
+            />
+        )
+    }
+}
+
 // 注意，这里用引号括起来的'HelloWorldApp'必须和你init创建的项目名一致
 // AppRegistry.registerComponent('HelloWorldApp', () => HelloWorldApp);
 // AppRegistry.registerComponent('HelloWorldApp', () => FixedDimensionsBasics);
 // AppRegistry.registerComponent('HelloWorldApp', () => PizzaTranslator);
-AppRegistry.registerComponent('HelloWorldApp', () => IScrolledDownAndWhatHappenedNextShockedMe);
+// AppRegistry.registerComponent('HelloWorldApp', () => IScrolledDownAndWhatHappenedNextShockedMe);
+// AppRegistry.registerComponent('HelloWorldApp', () => ListViewBasics);
+AppRegistry.registerComponent('HelloWorldApp', () => SimpleNavigation);

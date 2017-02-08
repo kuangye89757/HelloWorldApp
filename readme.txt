@@ -128,3 +128,67 @@ TextInput(见组件PizzaTranslator)
 =====================================================================================
 ScrollView(见IScrolledDownAndWhatHappenedNextShockedMe)
     一个通用的可滚动的容器，你可以在其中放入多个组件和视图
+
+=====================================================================================
+ListView(见ListViewBasics)
+    dataSource是列表的数据源
+    renderRow逐个解析数据源中的数据，然后返回一个设定好格式的组件来渲染
+
+=====================================================================================
+Fetch API
+    /**网络请求*/
+    1.fetch('https://mywebsite.com/mydata.json')
+
+    2.fetch('https://mywebsite.com/endpoint/', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstParam: 'yourValue',
+        secondParam: 'yourOtherValue',
+      })
+    })
+
+    3.fetch('https://mywebsite.com/endpoint/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: 'key1=value1&key2=value2'
+    })
+
+    /**响应数据*/
+    getMoviesFromApiAsync() {
+       return fetch('http://facebook.github.io/react-native/movies.json')
+           .then((response) => response.json())
+           .then((responseJson) => {
+               return responseJson.movies;
+           })
+           .catch((error) => {
+               console.error(error);
+           });
+    }
+
+
+XMLHttpRequest API(ajax)
+    var request = new XMLHttpRequest();
+    request.onreadystatechange = (e) => {
+      if (request.readyState !== 4) {
+        return;
+      }
+
+      if (request.status === 200) {
+        console.log('success', request.responseText);
+      } else {
+        console.warn('error');
+      }
+    };
+
+    request.open('GET', 'https://mywebsite.com/endpoint/');
+    request.send();
+
+=====================================================================================
+Navigator(管理多个页面间的跳转)
+    一、场景的概念--摆放在一个屏幕中的组件，就共同构成了一个"场景"
